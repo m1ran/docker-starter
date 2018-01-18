@@ -1,14 +1,30 @@
 version: '3'
 
 services:
+  product-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'docker'
+      MYSQL_USER: 'test'
+      MYSQL_PASSWORD: 'test'
+    volumes:
+      - ./db/src:/var/lib/mysql
+    ports:
+      - 3306:3306
   product-service:
     build: ./product
+    restart: always
     volumes:
       - ./product/src:/usr/src/app
     ports:
       - 3000:3000
+    depends_on:
+      - product-db
   website:
     build: ./website
+    restart: always
     volumes:
       - ./website/src:/var/www/html
     ports:
