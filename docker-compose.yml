@@ -10,7 +10,7 @@ services:
       MYSQL_USER: 'test'
       MYSQL_PASSWORD: 'test'
     volumes:
-      - ./db/src:/var/lib/mysql
+      - ./db:/var/lib/mysql
     ports:
       - 3306:3306
   product-service:
